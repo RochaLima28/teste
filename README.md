@@ -121,23 +121,40 @@ projeto/
 
 ## ⚙️ Configuração
 
-### Configurar pasta de monitoramento
+### ⚠️ IMPORTANTE: Configurações Obrigatórias
+
+Antes de executar em produção, você **DEVE** configurar:
+
+#### 1. Chave Secreta (SECRET_KEY)
+
+**NUNCA use a chave padrão em produção!** Gere uma chave segura:
+
+```python
+# Em settings.py
+import os
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'sua-chave-super-segura-aqui')
+```
+
+Para gerar uma chave aleatória:
+```bash
+python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+```
+
+#### 2. Pasta de Monitoramento (WATCH_FOLDER)
+
+**Ajuste o caminho para seu ambiente!** Não deixe caminhos com nomes de usuários específicos.
 
 Edite o arquivo `projeto_django/settings.py`:
 
 ```python
-# Configuração para monitoramento de arquivos Excel
+# Opção 1: Usar variável de ambiente (RECOMENDADO)
+WATCH_FOLDER = os.environ.get('EXCEL_WATCH_FOLDER', '/caminho/padrao')
+
+# Opção 2: Hardcoded (apenas para desenvolvimento)
 WATCH_FOLDER = r"C:\Users\SEU_USUARIO\Desktop\Nova pasta"  # Ajuste o caminho
+
 EXCEL_PATTERN = "*.xlsm"  # Padrão de arquivo
 CHECK_INTERVAL = 2  # Intervalo de verificação em segundos
-```
-
-### Chave secreta
-
-Para produção, altere a `SECRET_KEY` em `settings.py`:
-
-```python
-SECRET_KEY = 'sua-chave-super-segura-aqui'
 ```
 
 ### Banco de dados

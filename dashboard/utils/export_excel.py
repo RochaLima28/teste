@@ -99,7 +99,7 @@ class ExcelExporter:
 
             # Cabecalho da tabela
             row = 10
-            headers = ['Data', 'Descricao', 'Categoria', 'Valor', 'Quem Registrou', 'Observacoes', 'Data de Criacao']
+            headers = ['Data', 'Descrição', 'Categoria', 'Valor', 'Quem Registrou', 'Observações', 'Data de Criação']
             
             for col, header in enumerate(headers, 1):
                 cell = ws.cell(row=row, column=col)

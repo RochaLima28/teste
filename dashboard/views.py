@@ -49,7 +49,8 @@ def token_required(f):
             request.user_id = data['user_id']
             request.username = data['username']
             request.full_name = data['full_name']
-        except:
+        except (jwt.InvalidTokenError, jwt.ExpiredSignatureError, KeyError) as e:
+            logger.warning(f"Token inválido: {e}")
             return JsonResponse({'error': 'Token inválido'}, status=401)
         
         return f(request, *args, **kwargs)
@@ -114,7 +115,7 @@ def login(request):
     import json
     try:
         data = json.loads(request.body)
-    except:
+    except json.JSONDecodeError:
         return JsonResponse({'error': 'Dados inválidos'}, status=400)
     
     username = data.get('username')
@@ -157,7 +158,7 @@ def register(request):
     import json
     try:
         data = json.loads(request.body)
-    except:
+    except json.JSONDecodeError:
         return JsonResponse({'error': 'Dados inválidos'}, status=400)
     
     username = data.get('username')
@@ -245,7 +246,7 @@ def add_expense(request):
     import json
     try:
         data = json.loads(request.body)
-    except:
+    except json.JSONDecodeError:
         return JsonResponse({'error': 'Dados inválidos'}, status=400)
     
     try:
@@ -377,7 +378,7 @@ def set_adjustment(request):
     import json
     try:
         data = json.loads(request.body)
-    except:
+    except json.JSONDecodeError:
         return JsonResponse({'error': 'Dados inválidos'}, status=400)
     
     try:

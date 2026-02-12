@@ -59,7 +59,7 @@ class DashboardConfig(AppConfig):
                         async_to_sync(channel_layer.group_send)(
                             "dashboard",
                             {
-                                "type": "dashboard.update",
+                                "type": "dashboard_update",
                                 "data": views.current_data
                             }
                         )
