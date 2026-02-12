@@ -1,7 +1,5 @@
-Flask==3.0.0
-Flask-SocketIO==5.3.5
-python-socketio==5.10.0
-python-engineio==4.8.0
-openpyxl==3.1.2
-Werkzeug==3.0.1
-PyJWT==2.11.0
+Django>=4.2
+channels>=4.0
+channels-redis>=4.0
+openpyxl>=3.1.2
+PyJWT>=2.8.0
