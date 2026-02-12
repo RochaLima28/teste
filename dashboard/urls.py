@@ -5,6 +5,19 @@ URLs para o dashboard app
 from django.urls import path
 from . import views
 
+# Wrapper views para combinar GET e POST na mesma rota
+def expenses_view(request):
+    if request.method == 'GET':
+        return views.get_expenses(request)
+    elif request.method == 'POST':
+        return views.add_expense(request)
+    
+def adjustments_view(request):
+    if request.method == 'GET':
+        return views.get_adjustment(request)
+    elif request.method == 'POST':
+        return views.set_adjustment(request)
+
 urlpatterns = [
     # Páginas
     path('', views.index, name='index'),
@@ -18,12 +31,10 @@ urlpatterns = [
     path('api/data', views.get_data, name='api_data'),
     
     # API - Expenses
-    path('api/expenses', views.get_expenses, name='api_get_expenses'),
-    path('api/expenses', views.add_expense, name='api_add_expense'),
+    path('api/expenses', expenses_view, name='api_expenses'),
     path('api/expenses/<int:expense_id>', views.delete_expense, name='api_delete_expense'),
     path('api/download/expenses/<str:company_code>', views.download_expenses, name='api_download_expenses'),
     
     # API - Adjustments
-    path('api/company/adjustment', views.get_adjustment, name='api_get_adjustment'),
-    path('api/company/adjustment', views.set_adjustment, name='api_set_adjustment'),
+    path('api/company/adjustment', adjustments_view, name='api_adjustments'),
 ]

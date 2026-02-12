@@ -208,6 +208,7 @@ def get_data(request):
     return JsonResponse(current_data)
 
 
+@require_http_methods(["GET"])
 def get_expenses(request):
     """Obter lançamentos de gastos"""
     company_code = request.GET.get('company_code')
@@ -347,6 +348,7 @@ def download_expenses(request, company_code):
         return JsonResponse({'error': str(e)}, status=500)
 
 
+@require_http_methods(["GET"])
 def get_adjustment(request):
     """Obter ajuste de valores da empresa"""
     company_code = request.GET.get('company_code')
